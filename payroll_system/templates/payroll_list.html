@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Payroll Records</h2>
+        <a href="/admin/pay_roll/payroll/add/" target="_blank" class="btn btn-success">
+            <i class="bi bi-plus-circle-fill"></i> Process New Payroll
+        </a>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Employee</th>
+                        <th>Date Processed</th>
+                        <th class="text-end">Basic Salary</th>
+                        <th class="text-end text-success">Allowances</th>
+                        <th class="text-end text-danger">Deductions</th>
+                        <th class="text-end fw-bold">Net Salary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pay in payrolls %}
+                    <tr>
+                        <td class="fw-semibold">{{ pay.employee }}</td>
+                        <td>{{ pay.payroll_date }}</td>
+                        <td class="text-end">₱{{ pay.basic_salary }}</td>
+                        <td class="text-end text-success">+₱{{ pay.allowances }}</td>
+                        <td class="text-end text-danger">-₱{{ pay.deductions }}</td>
+                        <td class="text-end fw-bold text-primary">₱{{ pay.net_salary }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted py-4">Wala pay narekord nga payroll. I-proseso kini sa Django Admin!</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

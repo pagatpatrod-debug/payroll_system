@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Employee Directory</h2>
+        <a href="/admin/pay_roll/employee/add/" target="_blank" class="btn btn-primary">
+            <i class="bi bi-person-plus-fill"></i> Add Employee
+        </a>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Position</th>
+                        <th>Department</th>
+                        <th class="text-end">Basic Salary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for emp in employees %}
+                    <tr>
+                        <td class="fw-semibold">{{ emp.first_name }} {{ emp.last_name }}</td>
+                        <td><span class="badge bg-secondary">{{ emp.position }}</span></td>
+                        <td>{{ emp.department }}</td>
+                        <td class="text-end fw-medium">₱{{ emp.basic_salary }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center text-muted py-4">Wala pay sulod ang listahan sa mga empleyado. Pagdugang sa Django Admin!</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
